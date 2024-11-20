@@ -55,7 +55,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Route to handle image upload and store it in MongoDB
-app.post("/api/movies", upload.single("image"), async (req, res) => {
+app.post("/api/movie", upload.single("image"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "Image file is required." });
   }
@@ -100,7 +100,7 @@ app.get("/api/movie", async (req, res) => {
 });
 
 // Route to get a movie by ID with image data
-app.get("/api/movies/:id", async (req, res) => {
+app.get("/api/movie/:id", async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
     if (!movie) {
@@ -120,7 +120,7 @@ app.get("/api/movies/:id", async (req, res) => {
 });
 
 // Route to update a movie by ID (with image update support)
-app.put("/api/movies/:id", upload.single("image"), async (req, res) => {
+app.put("/api/movie/:id", upload.single("image"), async (req, res) => {
   try {
     const updates = req.body;
     if (req.file) {
@@ -143,7 +143,7 @@ app.put("/api/movies/:id", upload.single("image"), async (req, res) => {
 });
 
 // Route to delete a movie by ID
-app.delete("/api/movies/:id", async (req, res) => {
+app.delete("/api/movie/:id", async (req, res) => {
   try {
     const deletedMovie = await Movie.findByIdAndDelete(req.params.id);
 
